@@ -6,7 +6,7 @@
         <Icon type="home"></Icon>
         Home
       </Menu-item>
-      <Menu-item name="/problems">
+      <Menu-item v-if="isVIP" name="/problems">
         <Icon type="ios-keypad"></Icon>
         Problems
       </Menu-item>
@@ -28,18 +28,6 @@
         </Menu-item>
         <Menu-item name="/oi-rank">
           OI Rank
-        </Menu-item>
-      </Submenu>
-      <Submenu name="">
-        <template slot="title">
-          <Icon type="information-circled"></Icon>
-          About
-        </template>
-        <Menu-item name="/about">
-          Judger
-        </Menu-item>
-        <Menu-item name="/FAQ">
-          FAQ
         </Menu-item>
       </Submenu>
       <template v-if="!isAuthenticated">
@@ -110,7 +98,7 @@
       }
     },
     computed: {
-      ...mapGetters(['website', 'modalStatus', 'user', 'isAuthenticated', 'isAdminRole']),
+      ...mapGetters(['website', 'modalStatus', 'user', 'isAuthenticated', 'isAdminRole', 'isVIP']),
       // 跟随路由变化
       activeMenu () {
         return '/' + this.$route.path.split('/')[1]
@@ -130,7 +118,6 @@
 <style lang="less" scoped>
   #header {
     position: fixed;
-    overflow: hidden;
     top: 0;
     left: 0;
     height: 60px;

@@ -22,6 +22,9 @@ const getters = {
   },
   hasProblemPermission: (state, getters) => {
     return getters.user.problem_permission !== PROBLEM_PERMISSION.NONE
+  },
+  isVIP: (stage, getters) => {
+    return !!getters.user.id && getters.user.is_vip
   }
 }
 

@@ -21,6 +21,11 @@
         <Icon type="ios-locked-outline" slot="prepend"></Icon>
         </Input>
       </FormItem>
+      <FormItem prop="vipcode">
+        <Input type="text" v-model="formRegister.vipcode" placeholder="VIPCode" size="large" @on-enter="handleRegister">
+        <Icon type="ios-locked-outline" slot="prepend"></Icon>
+        </Input>
+      </FormItem>
       <FormItem prop="captcha" style="margin-bottom:10px">
         <div class="oj-captcha">
           <div class="oj-captcha-code">
