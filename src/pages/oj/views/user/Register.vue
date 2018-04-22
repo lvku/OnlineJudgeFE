@@ -110,7 +110,8 @@
           password: '',
           passwordAgain: '',
           email: '',
-          captcha: ''
+          captcha: '',
+          vipcode: ''
         },
         ruleRegister: {
           username: [
@@ -130,6 +131,9 @@
           ],
           captcha: [
             {required: true, trigger: 'blur', min: 1, max: 10}
+          ],
+          vipcode: [
+            {required: false, trigger: 'blur', min: 0, max: 10}
           ]
         }
       }
