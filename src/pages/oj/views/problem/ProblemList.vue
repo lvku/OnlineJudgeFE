@@ -91,6 +91,7 @@
           {
             title: '#',
             key: '_id',
+            width: '10%',
             render: (h, params) => {
               return h('Button', {
                 props: {
@@ -130,6 +131,7 @@
           },
           {
             title: 'Level',
+            width: '10%',
             render: (h, params) => {
               let t = params.row.difficulty
               let color = 'blue'
@@ -144,10 +146,12 @@
           },
           {
             title: 'Total',
+            width: '10%',
             key: 'submission_number'
           },
           {
             title: 'AC Rate',
+            width: '10%',
             render: (h, params) => {
               return h('span', this.getACRate(params.row.accepted_number, params.row.submission_number))
             }
