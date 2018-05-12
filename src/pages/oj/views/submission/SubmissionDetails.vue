@@ -19,17 +19,19 @@
 
     <!--后台返info就显示出来， 权限控制放后台 -->
     <Col v-if="submission.info && !isCE" :span="20">
-    <Alert type="warning">
-      <div class="admin-info-content">
-        <Icon type="information-circled" color="#f90"></Icon>
-        <span class="admin-info-content">Only admin can check the test_case details in ACM problems.</span>
-      </div>
-    </Alert>
     <Table stripe :loading="loading" :disabled-hover="true" :columns="columns" :data="submission.info.data"></Table>
     </Col>
 
     <Col :span="20">
     <Highlight :code="submission.code" :language="submission.language" :border-color="status.color"></Highlight>
+    </Col>
+    <Col v-if="input" :span="20">
+      <p>Input:</p>
+      <Highlight :code="input"></Highlight>
+    </Col>
+    <Col  v-if="output" :span="20">
+      <p>Output:</p>
+      <Highlight :code="output"></Highlight>
     </Col>
     <Col v-if="submission.can_unshare" :span="20">
     <div id="share-btn">
@@ -125,7 +127,9 @@
           }
         },
         isConcat: false,
-        loading: false
+        loading: false,
+        input: '',
+        output: ''
       }
     },
     mounted () {
@@ -144,11 +148,12 @@
               this.isConcat = true
               columns = columns.concat(scoreColumn)
             }
-            if (this.isAdminRole) {
-              this.isConcat = true
-              columns = columns.concat(adminColumn)
-            }
+            this.isConcat = true
+            columns = columns.concat(adminColumn)
             this.columns = columns
+
+            this.input = data.info.data[0].input
+            this.output = data.info.data[0].output
           }
           this.submission = data
         }, () => {
@@ -174,9 +179,6 @@
       },
       isCE () {
         return this.submission.result === -2
-      },
-      isAdminRole () {
-        return this.$store.getters.isAdminRole
       }
     }
   }
