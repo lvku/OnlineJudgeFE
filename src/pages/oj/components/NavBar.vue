@@ -18,18 +18,10 @@
         <Icon type="ios-pulse-strong"></Icon>
         Status
       </Menu-item>
-      <Submenu name="">
-        <template slot="title">
-          <Icon type="podium"></Icon>
-          Rank
-        </template>
-        <Menu-item name="/acm-rank">
-          ACM Rank
-        </Menu-item>
-        <Menu-item name="/oi-rank">
-          OI Rank
-        </Menu-item>
-      </Submenu>
+      <Menu-item name="/acm-rank">
+        <Icon type="ios-pulse-strong"></Icon>
+        Rank
+      </Menu-item>
       <template v-if="!isAuthenticated">
         <div class="btn-menu">
           <Button type="ghost"

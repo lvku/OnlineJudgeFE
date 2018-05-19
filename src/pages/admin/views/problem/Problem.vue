@@ -186,14 +186,6 @@
               </el-upload>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="Type">
-              <el-radio-group v-model="problem.rule_type" :disabled="disableRuleType">
-                <el-radio label="ACM">ACM</el-radio>
-                <el-radio label="OI">OI</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
           <el-col :span="24">
             <el-table
               :data="problem.test_case_score"
@@ -205,18 +197,6 @@
               <el-table-column
                 prop="output_name"
                 label="Output">
-              </el-table-column>
-              <el-table-column
-                prop="score"
-                label="Score">
-                <template slot-scope="scope">
-                  <el-input
-                    size="small"
-                    placeholder="Score"
-                    v-model="scope.row.score"
-                    :disabled="problem.rule_type !== 'OI'">
-                  </el-input>
-                </template>
               </el-table-column>
             </el-table>
           </el-col>
@@ -610,4 +590,3 @@
     overflow-x: scroll;
   }
 </style>
-
