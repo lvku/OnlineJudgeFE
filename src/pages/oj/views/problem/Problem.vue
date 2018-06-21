@@ -92,6 +92,30 @@
           </Button>
           </Col>
         </Row>
+        <Row type="flex" v-if="result.statistic_info && result.statistic_info.err_info">
+          <Col>
+          <Alert :type="submissionStatus.type" showIcon>
+            <div slot="desc" class="content">
+              <template>
+                <pre>{{result.statistic_info.err_info}}</pre>
+              </template>
+            </div>
+          </Alert>
+          </Col>
+        </Row>
+        <Row type="flex" v-if="testCaseInput">
+          <Col>
+            <p>Input:</p>
+            <Highlight :code="testCaseInput"></Highlight>
+          </Col>
+        </Row>
+        <Row type="flex" v-if="testCaseOutput">
+          <Col>
+            <p>Output:</p>
+            <Highlight :code="testCaseOutput"
+                       :border-color="submissionStatus.color"></Highlight>
+          </Col>
+        </Row>
       </Card>
     </div>
 
@@ -197,6 +221,7 @@
   import { JUDGE_STATUS, CONTEST_STATUS, buildProblemCodeKey } from '@/utils/constants'
   import api from '@oj/api'
   import { pie, largePie } from './chartData'
+  import Highlight from '@/pages/oj/components/Highlight'
 
   // 只显示这些状态的图形占用
   const filtedStatus = ['-1', '-2', '0', '1', '2', '3', '4', '8']
@@ -204,11 +229,14 @@
   export default {
     name: 'Problem',
     components: {
-      CodeMirror
+      CodeMirror,
+      Highlight
     },
     mixins: [FormMixin],
     data () {
       return {
+        testCaseInput: '',
+        testCaseOutput: '',
         statusVisible: false,
         captchaRequired: false,
         graphVisible: false,
@@ -364,6 +392,18 @@
               this.submitting = false
               clearTimeout(this.refreshStatus)
               this.init()
+              if (this.result.result === 0) {
+                // success.
+              } else if (this.result.result === -1) {
+                // wrong answer.
+                if (Array.isArray(this.result.info.data)) {
+                  var errorCase = this.result.info.data.find((item) => {
+                    return item.result !== 0
+                  })
+                  this.testCaseInput = errorCase.input
+                  this.testCaseOutput = errorCase.output
+                }
+              }
             } else {
               this.refreshStatus = setTimeout(checkStatus, 2000)
             }
@@ -455,6 +495,7 @@
       },
       submissionStatus () {
         return {
+          type: JUDGE_STATUS[this.result.result]['type'],
           text: JUDGE_STATUS[this.result.result]['name'],
           color: JUDGE_STATUS[this.result.result]['color']
         }
@@ -598,4 +639,3 @@
     height: 480px;
   }
 </style>
-
