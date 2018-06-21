@@ -152,8 +152,13 @@
             columns = columns.concat(adminColumn)
             this.columns = columns
 
-            this.input = data.info.data[0].input
-            this.output = data.info.data[0].output
+            if (Array.isArray(data.info.data)) {
+              var errorCase = data.info.data.find((item) => {
+                return item.result !== 0
+              })
+              this.input = errorCase.input
+              this.output = errorCase.output
+            }
           }
           this.submission = data
         }, () => {
