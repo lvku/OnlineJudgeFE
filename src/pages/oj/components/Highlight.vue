@@ -8,7 +8,7 @@
     data () {
       return {
         styleObject: {
-          'border-left': '2px solid green'
+          'border-left': '2px solid ' + (this.borderColor ? this.borderColor : 'green')
         }
       }
     },

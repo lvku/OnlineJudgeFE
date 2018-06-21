@@ -27,9 +27,9 @@
     </Col>
     <Col v-if="input" :span="20">
       <p>Input:</p>
-      <Highlight :code="input" :border-color="status.color"></Highlight>
+      <Highlight :code="input"></Highlight>
     </Col>
-    <Col  v-if="output" :span="20">
+    <Col v-if="output" :span="20">
       <p>Output:</p>
       <Highlight :code="output" :border-color="status.color"></Highlight>
     </Col>
