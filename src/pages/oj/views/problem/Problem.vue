@@ -420,6 +420,8 @@
           return
         }
         this.submissionId = ''
+        this.testCaseInput = ''
+        this.testCaseOutput = ''
         this.result = {result: 9}
         this.submitting = true
         let data = {
